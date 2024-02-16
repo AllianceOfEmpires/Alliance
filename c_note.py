@@ -1,4 +1,2 @@
-﻿from classes import Field
-
-class Note(Field):
+﻿class Note():
     pass

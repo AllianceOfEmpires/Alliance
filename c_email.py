@@ -1,5 +1,2 @@
-﻿from classes import Field
-
-
-class Email(Field):
+﻿class Email():
     pass
