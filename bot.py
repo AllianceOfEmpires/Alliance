@@ -58,8 +58,10 @@ class Bot:
         birthday = None
         if len(data) > 2:
             birthday = data[2]
+        if len(data) > 3:
+            address = data[3]
 
-        record = Record(name, phone, birthday)
+        record = Record(name, phone, birthday, address)
         book.add_record(record)
 
         return record
