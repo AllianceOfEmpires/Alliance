@@ -1,5 +1,6 @@
-﻿from collections import UserDict
+from collections import UserDict
 from datetime import datetime
+from c_note import Note
 
 
 class Field:
