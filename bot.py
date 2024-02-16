@@ -14,7 +14,7 @@ TEXT = \
     6. Edit phone                   - - - > 6 Alexandr 2222222222 3333333333
     7. Edit birthday                - - - > 7 Alexandr 31.12.1701
     8. Day to birthday              - - - > 8 Alexandr
-    9. Search                       - - - > 9 text
+    9. Search                       - - - > search text
     10. remove contact              - - - > remove name
     11. remove phone                - - - > remove name phone
     12. Show all contact            - - - > show all
