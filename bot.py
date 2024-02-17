@@ -56,10 +56,11 @@ class Bot:
         name = data[0]
         phone = data[1]
         birthday = None
+        address = None
         if len(data) > 2:
             birthday = data[2]
         if len(data) > 3:
-            address = data[3]
+            address = " ".join(data[3:])
 
         record = Record(name, phone, birthday, address)
         book.add_record(record)
