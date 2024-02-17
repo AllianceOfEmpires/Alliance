@@ -39,6 +39,10 @@ class Name(Field):
     pass
 
 
+class Address(Field):
+    pass
+
+
 class Phone(Field):
 
     @staticmethod
@@ -57,13 +61,16 @@ class Birthday(Field):
 
 
 class Record:
-    def __init__(self, name, phone=None, birthday=None):
+    def __init__(self, name, phone=None, birthday=None, address=None):
         self.name = Name(name)
 
         self.phones = []
 
         if phone:
             self.phones.append(Phone(phone))
+
+        if address:
+            self.address = address
 
         self.birthday = Birthday(birthday) if birthday else None
 
@@ -123,7 +130,7 @@ class Record:
         return self
 
     def __str__(self):
-        return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}"
+        return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}, address: {self.address}"
 
     def __repr__(self):
         return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}"
