@@ -1,7 +1,7 @@
 from collections import UserDict
 from datetime import datetime
 from c_note import Note
-
+from c_email import Email
 
 class Field:
 
