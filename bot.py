@@ -46,6 +46,10 @@ class Bot:
                 return ('\n  Check the phone number! Should be 10 digits\n')
             except IndexError:
                 return ('\n  Check your input!\n')
+            except AddressIsExist:
+                return ('\n  Address is exist!\n')
+            except AddressIsNotExist:
+                return ('\n  Address is not exist!\n')
 
         return inner
 
@@ -98,10 +102,17 @@ class Bot:
     def add_address(self, book, data):
         data = data[0]
         name = data[0]
+        address = " ".join(data[1:])
         record = book.find(name)
-        address = data[1]
         record.add_address(address)
+        return record
 
+    def remove_address(self, book, data):
+        data = data[0]
+        name = data[0]
+        address = " ".join(data[1:])
+        record = book.find(name)
+        record.remove_address(address)
         return record
 
     def console_input(self):
@@ -243,7 +254,8 @@ class Bot:
             "6": self.edit_phone,
             '7': self.edit_birthday,
             "8": self.days_to_birthday,
-            "add-a": self.add_address,  ## test
+            "add-a": self.add_address,  # test
+            "rem-a": self.remove_address,  # test
             "search": self.search,
             "remove": self.remove,
             "show all": self.show_all,
