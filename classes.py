@@ -68,27 +68,27 @@ class Email(Field):
         # Проверка допустимости адреса электронной почты
         if bool(re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', value)):
             return True
-        
+
         raise ValueError('Invalid email address')
         # return bool(re.match(r'((?:http(s?)://)(?:www.)?)[\w]+.[a-z]{2,3}', value))
 
-    def add_email(self, email):
-        if not self.is_valid(email):
-            raise ValueError("Invalid email address format.")
-        super().value.append(email)
+    # def add_email(self, email):
+    #     if not self.is_valid(email):
+    #         raise ValueError("Invalid email address format.")
+    #     super().value.append(email)
 
-    def edit_email(self, old_email, new_email):
-        if old_email not in self.value:
-            raise ValueError("The old email address was not found.")
-        if not self.is_valid(new_email):
-            raise ValueError("Invalid email address format.")
-        index = self.value.index(old_email)
-        self.value[index] = new_email
+    # def edit_email(self, old_email, new_email):
+    #     if old_email not in self.value:
+    #         raise ValueError("The old email address was not found.")
+    #     if not self.is_valid(new_email):
+    #         raise ValueError("Invalid email address format.")
+    #     index = self.value.index(old_email)
+    #     self.value[index] = new_email
 
-    def remove_email(self, email):
-        if email not in self.value:
-            raise ValueError("The email address was not found.")
-        self.value.remove(email)
+    # def remove_email(self, email):
+    #     if email not in self.value:
+    #         raise ValueError("The email address was not found.")
+    #     self.value.remove(email)
 
 
 class Record:
@@ -172,6 +172,12 @@ class Record:
             return self.add_phone(new_phone)
         return
 
+    def edit_email(self, old_email, new_email):
+        Email(new_email)
+        
+        if self.remove_email(old_email):
+            return self.add_email(new_email)
+
     def find_phone(self, search):
 
         for phone in self.phones:
@@ -187,6 +193,14 @@ class Record:
         if len_before == len(self.phones):
             return None
         return self
+
+    def remove_email(self, email):
+        len_before = len(self.emails)
+        self.emails = [e for e in self.emails if e.value != email]
+        if len_before == len(self.emails):
+            return None
+        return self
+        
 
     def __str__(self):
         return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}, addresses: {'; '.join(str(a) for a in self.addresses)}, email: {'; '.join(str(a) for a in self.emails)}"

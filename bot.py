@@ -137,7 +137,7 @@ class Bot:
     def edit_phone(self, book, data):
         data = data[0]
         name, old_phone, new_phone = data
-        print(new_phone, old_phone)
+        # print(new_phone, old_phone)
         record = book.find(name)
         record.edit_phone(old_phone, new_phone)
         return record
@@ -148,6 +148,14 @@ class Bot:
         name, birthday = data
         record = book.find(name)
         record.add_birthday(birthday)
+        return record
+    
+    @input_error
+    def edit_email(self, book, data):
+        data = data[0]
+        name, old_email, new_email = data
+        record = book.find(name)
+        record.edit_email(old_email, new_email)
         return record
 
     @input_error
@@ -214,6 +222,9 @@ class Bot:
                 return record
             else:
                 raise KeyError
+            
+
+        
 
     @input_error
     def search(self, book, data):
@@ -269,7 +280,9 @@ class Bot:
             "show all": self.show_all,
             'help': self.help,
             'good bye': self.good_bye,
-            'add email': self.add_email
+            'add email': self.add_email,
+            'edit email': self.edit_email,
+            'remove email': self.remove_email,
         }
 
         print(TEXT)
