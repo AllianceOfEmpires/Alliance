@@ -160,7 +160,7 @@ class Record:
 
             return delta.days
 
-        return
+        return None
 
     def edit_name(self, new_name):
         # self.name.value = Name(new_name)

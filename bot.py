@@ -165,6 +165,18 @@ class Bot:
         if record:
             result = record.days_to_birthday()
             return f"Days to birthday: {result}"
+    
+    @input_error
+    def contacts_birthday(self, book, data):
+        data = data[0]
+        days = int(data[0])
+        result = []
+        for record in book.values():
+            if record.days_to_birthday() < days:
+                result.append(record)
+        if result != []:
+            return result
+        else: return 'There are no contacts'
 
     @input_error
     def find(self, book, data):
@@ -282,7 +294,8 @@ class Bot:
             'good bye': self.good_bye,
             'add email': self.add_email,
             'edit email': self.edit_email,
-            'remove email': self.remove_email,
+            # 'remove email': self.remove_email,
+            'contacts birthday': self.contacts_birthday,
         }
 
         print(TEXT)
