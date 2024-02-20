@@ -1,8 +1,8 @@
+import re
 from collections import UserDict
 from datetime import datetime
-from c_note import Note
-#from c_email import Email
 from c_exceptions import *
+
 
 class Field:
 
@@ -61,12 +61,43 @@ class Birthday(Field):
             return False
 
 
+class Email(Field):
+
+    @staticmethod
+    def is_valid(value):
+        # Проверка допустимости адреса электронной почты
+        if bool(re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', value)):
+            return True
+        
+        raise ValueError('Invalid email address')
+        # return bool(re.match(r'((?:http(s?)://)(?:www.)?)[\w]+.[a-z]{2,3}', value))
+
+    def add_email(self, email):
+        if not self.is_valid(email):
+            raise ValueError("Invalid email address format.")
+        super().value.append(email)
+
+    def edit_email(self, old_email, new_email):
+        if old_email not in self.value:
+            raise ValueError("The old email address was not found.")
+        if not self.is_valid(new_email):
+            raise ValueError("Invalid email address format.")
+        index = self.value.index(old_email)
+        self.value[index] = new_email
+
+    def remove_email(self, email):
+        if email not in self.value:
+            raise ValueError("The email address was not found.")
+        self.value.remove(email)
+
+
 class Record:
-    def __init__(self, name, phone=None, birthday=None, address=None):
+    def __init__(self, name, phone=None, birthday=None, address=None, email=None):
         self.name = Name(name)
 
         self.phones = []
         self.addresses = []
+        self.emails = []
 
         if phone:
             self.phones.append(Phone(phone))
@@ -75,6 +106,9 @@ class Record:
             self.addresses.append(Address(address))
 
         self.birthday = Birthday(birthday) if birthday else None
+
+        if email:
+            self.emails.append(Email(email))
 
     def add_phone(self, phone):
         phone = Phone(phone)
@@ -95,6 +129,13 @@ class Record:
             return address
         else:
             raise AddressIsExist
+
+    def add_email(self, email):
+        email = Email(email)
+        if email.value not in [a.value for a in self.emails]:
+            self.emails.append(email)
+        else:
+            raise ValueError("Email already exists")
 
     def remove_address(self, address):
         len_before = len(self.addresses)
@@ -148,7 +189,7 @@ class Record:
         return self
 
     def __str__(self):
-        return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}, addresses: {'; '.join(str(a) for a in self.addresses)}"
+        return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}, addresses: {'; '.join(str(a) for a in self.addresses)}, email: {'; '.join(str(a) for a in self.emails)}"
 
     def __repr__(self):
         return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}"

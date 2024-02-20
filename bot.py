@@ -107,6 +107,14 @@ class Bot:
         record.add_address(address)
         return record
 
+    @input_error
+    def add_email(self, book, data):
+        data = data[0]
+        name = data[0]
+        record = book.find(name)
+        mail = data[1]
+        record.add_email(mail)
+
     def remove_address(self, book, data):
         data = data[0]
         name = data[0]
@@ -237,8 +245,8 @@ class Bot:
     def parser(self, user_input, commands):
         for command in commands:
             if user_input.startswith(command):
-                # data = user_input.replace(command, '').split()
-                data = user_input.split()[1:]
+                data = user_input.replace(command, '').split()
+                # data = user_input.split()[1:]
                 return commands[command], data
         else:
             raise IndexError
@@ -261,6 +269,7 @@ class Bot:
             "show all": self.show_all,
             'help': self.help,
             'good bye': self.good_bye,
+            'add email': self.add_email
         }
 
         print(TEXT)
