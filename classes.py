@@ -65,12 +65,13 @@ class Record:
         self.name = Name(name)
 
         self.phones = []
+        self.addresses = []
 
         if phone:
             self.phones.append(Phone(phone))
 
         if address:
-            self.address = address
+            self.addresses.append(Address(address))
 
         self.birthday = Birthday(birthday) if birthday else None
 
@@ -85,6 +86,20 @@ class Record:
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
         return self.birthday
+
+    def add_address(self, address):
+        address = Address(address)
+        # if str(phone.value) not in [str(p.value) for p in self.phones]:
+        if address.value not in [a.value for a in self.addresses]:
+            self.addresses.append(address)
+        return address
+
+    def remove_address(self, address):
+        len_before = len(self.addresses)
+        self.addresses = [a for a in self.addresses if a.value != address]
+        if len_before == len(self.phones):
+            return None
+        return self
 
     def days_to_birthday(self):
 
@@ -130,7 +145,7 @@ class Record:
         return self
 
     def __str__(self):
-        return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}, address: {self.address}"
+        return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}, addresses: {'; '.join(str(a) for a in self.addresses)}"
 
     def __repr__(self):
         return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}"
@@ -175,7 +190,9 @@ class AddressBook(UserDict):
         if not searched_text:
             return result
         for record in self.data.values():
-            if searched_text in str(record.name.value).lower() + ' '.join([phone.value for phone in record.phones]):
+            if searched_text in str(record.name.value).lower()\
+                    + ' '.join([phone.value for phone in record.phones])\
+                    + ' '.join([address.value for address in record.addresses]):
                 result.append(record)
         return result
 

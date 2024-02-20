@@ -94,6 +94,16 @@ class Bot:
 
         return record
 
+    @input_error
+    def add_address(self, book, data):
+        data = data[0]
+        name = data[0]
+        record = book.find(name)
+        address = data[1]
+        record.add_address(address)
+
+        return record
+
     def console_input(self):
         return input('> ').lower().strip()
 
@@ -233,6 +243,7 @@ class Bot:
             "6": self.edit_phone,
             '7': self.edit_birthday,
             "8": self.days_to_birthday,
+            "add-a": self.add_address,  ## test
             "search": self.search,
             "remove": self.remove,
             "show all": self.show_all,
