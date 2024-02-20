@@ -22,3 +22,9 @@ class BadEmailFormat(Exception):
         super().__init__(self.message)
 
 
+class AddressIsExist(Exception):
+    pass
+
+
+class AddressIsNotExist(Exception):
+    pass

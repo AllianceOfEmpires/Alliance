@@ -1,7 +1,8 @@
 from collections import UserDict
 from datetime import datetime
 from c_note import Note
-from c_email import Email
+#from c_email import Email
+from c_exceptions import *
 
 class Field:
 
@@ -89,17 +90,19 @@ class Record:
 
     def add_address(self, address):
         address = Address(address)
-        # if str(phone.value) not in [str(p.value) for p in self.phones]:
         if address.value not in [a.value for a in self.addresses]:
             self.addresses.append(address)
-        return address
+            return address
+        else:
+            raise AddressIsExist
 
     def remove_address(self, address):
         len_before = len(self.addresses)
         self.addresses = [a for a in self.addresses if a.value != address]
-        if len_before == len(self.phones):
-            return None
-        return self
+        if len_before == len(self.addresses):
+            raise AddressIsNotExist
+        else:
+            return self
 
     def days_to_birthday(self):
 
