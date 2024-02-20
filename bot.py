@@ -1,4 +1,5 @@
 import pickle
+from clean_folder import Cleaner
 from classes import *
 from exceptions import *
 
@@ -29,6 +30,7 @@ class Bot:
         # FILE_NAME = 'phone_book.pickle'
         self.file = 'phone_book.pickle'
         self.book = AddressBook()
+        self.raw_path = ""
         try:
             with open(self.file, 'rb') as fh:
                 read_book = pickle.load(fh)
@@ -46,6 +48,8 @@ class Bot:
                 return ('\n  Check the phone number! Should be 10 digits\n')
             except IndexError:
                 return ('\n  Check your input!\n')
+            except FileNotFoundError:
+                return ('\n  Path is not exist!\n')
             except AddressIsExist:
                 return ('\n  Address is exist!\n')
             except AddressIsNotExist:
@@ -115,6 +119,7 @@ class Bot:
         mail = data[1]
         record.add_email(mail)
 
+    @input_error
     def remove_address(self, book, data):
         data = data[0]
         name = data[0]
@@ -124,7 +129,9 @@ class Bot:
         return record
 
     def console_input(self):
-        return input('> ').lower().strip()
+        usr_input = input('> ')
+        self.raw_path = usr_input
+        return usr_input.lower().strip()
 
     @input_error
     def edit_name(self, book, data):
@@ -197,6 +204,11 @@ class Bot:
                 raise KeyError
             return result
 
+    @input_error
+    def clean(self, data=None, path=None):
+        cleaner = Cleaner(self.raw_path.strip().split()[1])
+        cleaner.clean()
+
     def hello(self, book, data):
         return '\n  Hello how can I help you?\n'
 
@@ -234,9 +246,7 @@ class Bot:
                 return record
             else:
                 raise KeyError
-            
 
-        
 
     @input_error
     def search(self, book, data):
@@ -296,6 +306,7 @@ class Bot:
             'edit email': self.edit_email,
             # 'remove email': self.remove_email,
             'contacts birthday': self.contacts_birthday,
+            "c": self.clean  # test
         }
 
         print(TEXT)
