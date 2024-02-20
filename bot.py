@@ -7,8 +7,8 @@ TEXT = \
     """
                        Commands list
         
-    1. New contact, phone, birthday - - - > 1 Alex 1111111111 31.12.1700
-    2. New contact                  - - - > 2 Alex
+    1. add contact with additional info:  - - - > add name phone birthday email address
+    2. New contact                        - - - > 2 Alex
     3. Add phone                    - - - > 3 Alex 2222222222
     4. Add birthday                 - - - > 4 Alex 31.12.1700
     5. Edit name                    - - - > 5 Alex Alexandr
@@ -65,19 +65,22 @@ class Bot:
         return inner
 
     @input_error
-    def add_contact_phone_birthday(self, book, data):
+    def add_contact_phone_birthday_email_address(self, book, data):
 
         data = data[0]
         name = data[0]
         phone = data[1]
         birthday = None
         address = None
+        email = None
         if len(data) > 2:
             birthday = data[2]
         if len(data) > 3:
-            address = " ".join(data[3:])
+            email = data[3]
+        if len(data) > 4:
+            address = " ".join(data[4:])
 
-        record = Record(name, phone, birthday, address)
+        record = Record(name, phone, birthday, address, email)
         book.add_record(record)
 
         return record
@@ -223,7 +226,13 @@ class Bot:
                 pickle.dump(book.data, fh)
 
         except Exception as e:
-            return e
+            return (e)
+
+        try:
+            with open('note_book.pickle', 'wb') as fh:
+                pickle.dump(self.notes.data, fh)
+        except Exception as e:
+            return (e)
 
         return 'Good bye!'
 
@@ -268,7 +277,7 @@ class Bot:
             #     print(f'\n{record}\n')
             # result = book.iterator(2)
 
-            for record in book.iterator(2):
+            for record in book.iterator(5):
                 # print(record)
                 print(*record)
                 # input('')
@@ -310,7 +319,7 @@ class Bot:
             text = note[1]
             print(f'  {title.title()}: {text}')
         return
-    
+
     def show_all_notes(self, book, data):
         result = self.notes.print_all_notes()
         print(result)
@@ -328,29 +337,29 @@ class Bot:
     def run(self):
 
         commands = {
-            'add note': self.add_note,
-            'edit note': self.edit_note,
-            'remove note': self.remove_note,
-            'search note': self.search_note,
-            'show all notes': self.show_all_notes,
-            "1": self.add_contact_phone_birthday,
-            "2": self.add_contact,
-            "3": self.add_phone,
-            "4": self.add_birthday,
-            "5": self.edit_name,
-            "6": self.edit_phone,
-            '7': self.edit_birthday,
-            "8": self.days_to_birthday,
+            "add info": self.add_contact_phone_birthday_email_address,
+            "add phone": self.add_phone,
             "add address": self.add_address,
-            "remove address": self.remove_address,
-            "search": self.search,
+            'add note': self.add_note,
+            "add birthday": self.add_birthday,
+            'add email': self.add_email,
+            "add": self.add_contact,
+            'edit note': self.edit_note,
+            "edit name": self.edit_name,
+            "edit phone": self.edit_phone,
+            'edit birthday': self.edit_birthday,
+            'edit email': self.edit_email,
             "remove": self.remove,
+            'remove note': self.remove_note,
+            "remove address": self.remove_address,
+            'contacts birthday': self.contacts_birthday,
+            'show all notes': self.show_all_notes,
             "show all": self.show_all,
+            'search note': self.search_note,
+            "search": self.search,
+            "days to birthdays": self.days_to_birthday,
             'help': self.help,
             'exit': self.good_bye,
-            'add email': self.add_email,
-            'edit email': self.edit_email,
-            'contacts birthday': self.contacts_birthday,
         }
 
         print(TEXT)
@@ -364,15 +373,8 @@ class Bot:
                 if result is not None:
                     print(result)
 
-                if result == 'exit':
-                    try:
-                        with open('note_book.pickle', 'wb') as fh:
-                            pickle.dump(self.notes.data, fh)
-                    except Exception as e:
-                        print(e)
-
-                    finally:
-                        break
+                if result == 'Good bye!':
+                    break
 
             except Exception as e:
                 # print('\n Check your input! \n')
