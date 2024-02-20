@@ -3,7 +3,9 @@
 
 class Note(UserDict):
     def add(self, note_title, note_text):
+        
         self.data[note_title] = note_text
+        return self.print_single_note(note_title)
 
     def search(self, request):
         results = []
@@ -15,25 +17,28 @@ class Note(UserDict):
     def edit(self, note_title, new_text):
         if note_title in self.data:
             self.data[note_title] = new_text
-            return True
+            return self.print_single_note(note_title)
         return False
 
     def delete(self, note_title):
         if note_title in self.data:
             del self.data[note_title]
-            return True
+            return 'Note has been deleted'
         return False
 
     def print_single_note(self, note_title):
         if note_title in self.data:
-            print(f"Title: {note_title}\nText: {self.data[note_title]}")
+            return f"Title: {note_title}\nText: {self.data[note_title]}"
         else:
-            print(f"Note '{note_title}' not found.")
+            return f"Note '{note_title}' not found."
 
     def print_all_notes(self):
         if not self.data:
-            print("No notes available.")
+            return "  No notes available."
         else:
-            print("All Notes:")
+            result = '\n   All notes:\n\n'
             for title, text in self.data.items():
-                print(f"Title: {title}\nText: {text}\n")
+                result += f'  {title.title()}: {text}\n'
+                # result += f"Title: {title.title()} Text: {text}\n"
+                # print(f"Title: {title}\nText: {text}\n")
+            return result

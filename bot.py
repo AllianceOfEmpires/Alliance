@@ -1,6 +1,7 @@
 import pickle
 from classes import *
 from exceptions import *
+from notes import *
 
 TEXT = \
     """
@@ -35,6 +36,16 @@ class Bot:
                 self.book.data = read_book
         except:
             print('New phone book has been created\n')
+
+        self.file_note = 'note_book.pickle'
+        self.notes = Note()
+
+        try:
+            with open(self.file_note, 'rb') as fh:
+                read_note = pickle.load(fh)
+                self.notes.data = read_note
+        except:
+            print('New book of notes has been created\n')
 
     def input_error(func):
         def inner(*args, **kwargs):
@@ -115,6 +126,7 @@ class Bot:
         mail = data[1]
         record.add_email(mail)
 
+    @input_error
     def remove_address(self, book, data):
         data = data[0]
         name = data[0]
@@ -149,7 +161,7 @@ class Bot:
         record = book.find(name)
         record.add_birthday(birthday)
         return record
-    
+
     @input_error
     def edit_email(self, book, data):
         data = data[0]
@@ -165,7 +177,7 @@ class Bot:
         if record:
             result = record.days_to_birthday()
             return f"Days to birthday: {result}"
-    
+
     @input_error
     def contacts_birthday(self, book, data):
         data = data[0]
@@ -176,7 +188,8 @@ class Bot:
                 result.append(record)
         if result != []:
             return result
-        else: return 'There are no contacts'
+        else:
+            return 'There are no contacts'
 
     @input_error
     def find(self, book, data):
@@ -229,14 +242,10 @@ class Bot:
             book.delete(record)
             if record:
                 record.remove_phone(phone)
-                # book.delete(record)
-                # book.add_record(result)
+
                 return record
             else:
                 raise KeyError
-            
-
-        
 
     @input_error
     def search(self, book, data):
@@ -264,6 +273,48 @@ class Bot:
                 print(*record)
                 # input('')
 
+    def add_note(self, book, data):
+        data = data[0]
+        note_title = data[0]
+        note_text = ' '.join(data[1:])
+        notes = self.notes
+        result = notes.add(note_title, note_text)
+        return result
+
+    def edit_note(self, book, data):
+        data = data[0]
+        note_title = data[0]
+        new_text = ' '.join(data[1:])
+        notes = self.notes
+        result = notes.edit(note_title, new_text)
+        if result == False:
+            return 'Note not found'
+        return result
+
+    def remove_note(self, book, data):
+        data = data[0]
+        note_title = data[0]
+        notes = self.notes
+        result = notes.delete(note_title)
+        if result == False:
+            return 'Note not found'
+        return 'Note has been removed'
+
+    def search_note(self, book, data):
+        data = data[0]
+        request = data[0]
+        notes = self.notes
+        result = notes.search(request)
+        for note in result:
+            title = note[0]
+            text = note[1]
+            print(f'  {title.title()}: {text}')
+        return
+    
+    def show_all_notes(self, book, data):
+        result = self.notes.print_all_notes()
+        print(result)
+
     @input_error
     def parser(self, user_input, commands):
         for command in commands:
@@ -277,6 +328,11 @@ class Bot:
     def run(self):
 
         commands = {
+            'add note': self.add_note,
+            'edit note': self.edit_note,
+            'remove note': self.remove_note,
+            'search note': self.search_note,
+            'show all notes': self.show_all_notes,
             "1": self.add_contact_phone_birthday,
             "2": self.add_contact,
             "3": self.add_phone,
@@ -285,16 +341,15 @@ class Bot:
             "6": self.edit_phone,
             '7': self.edit_birthday,
             "8": self.days_to_birthday,
-            "add-a": self.add_address,  # test
-            "rem-a": self.remove_address,  # test
+            "add address": self.add_address,
+            "remove address": self.remove_address,
             "search": self.search,
             "remove": self.remove,
             "show all": self.show_all,
             'help': self.help,
-            'good bye': self.good_bye,
+            'exit': self.good_bye,
             'add email': self.add_email,
             'edit email': self.edit_email,
-            # 'remove email': self.remove_email,
             'contacts birthday': self.contacts_birthday,
         }
 
@@ -308,8 +363,16 @@ class Bot:
 
                 if result is not None:
                     print(result)
-                if result == 'Good bye!':
-                    break
+
+                if result == 'exit':
+                    try:
+                        with open('note_book.pickle', 'wb') as fh:
+                            pickle.dump(self.notes.data, fh)
+                    except Exception as e:
+                        print(e)
+
+                    finally:
+                        break
 
             except Exception as e:
                 # print('\n Check your input! \n')
