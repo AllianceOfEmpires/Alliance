@@ -1,4 +1,4 @@
-﻿from bsrc.botimport Bot
+﻿from bot import *
 
 
 if __name__ == '__main__':

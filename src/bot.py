@@ -1,8 +1,8 @@
 import pickle
-from src.clean_folder import Cleaner
-from src.classes import *
-from src.exceptions import *
-from src.notes import *
+from clean_folder import Cleaner
+from classes import *
+from exceptions import *
+from notes import *
 
 TEXT = \
     """
