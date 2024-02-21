@@ -16,9 +16,6 @@ class Field:
     def __str__(self):
         return str(self.value)
 
-    # def __repr__(self):
-    #     return str(self.value)
-
     @staticmethod
     def is_valid(value):
         return True
@@ -65,7 +62,6 @@ class Email(Field):
 
     @staticmethod
     def is_valid(value):
-        # Проверка допустимости адреса электронной почты
         if bool(re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', value)):
             return True
 
@@ -174,7 +170,7 @@ class Record:
 
     def edit_email(self, old_email, new_email):
         Email(new_email)
-        
+
         if self.remove_email(old_email):
             return self.add_email(new_email)
 
@@ -200,7 +196,6 @@ class Record:
         if len_before == len(self.emails):
             return None
         return self
-        
 
     def __str__(self):
         return f"Contact name: {str(self.name)}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}, addresses: {'; '.join(str(a) for a in self.addresses)}, email: {'; '.join(str(a) for a in self.emails)}"
