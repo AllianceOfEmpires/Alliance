@@ -1,4 +1,6 @@
 import pickle
+import typing
+from typing import List
 from clean_folder import Cleaner
 from classes import *
 from exceptions import *
@@ -37,7 +39,6 @@ TEXT = \
 
 class Bot:
     def __init__(self):
-        # FILE_NAME = 'phone_book.pickle'
         self.file = 'phone_book.pickle'
         self.book = AddressBook()
         self.raw_path = ""
@@ -45,7 +46,7 @@ class Bot:
             with open(self.file, 'rb') as fh:
                 read_book = pickle.load(fh)
                 self.book.data = read_book
-        except:
+        except FileNotFoundError:
             print('New phone book has been created\n')
 
         self.file_note = 'note_book.pickle'
@@ -55,7 +56,8 @@ class Bot:
             with open(self.file_note, 'rb') as fh:
                 read_note = pickle.load(fh)
                 self.notes.data = read_note
-        except:
+
+        except FileNotFoundError:
             print('New book of notes has been created\n')
 
     def input_error(func):
@@ -78,8 +80,7 @@ class Bot:
         return inner
 
     @input_error
-    def add_contact_phone_birthday_email_address(self, book, data):
-
+    def add_contact_phone_birthday_email_address(self, book, data: List[list]):
         data = data[0]
         name = data[0]
         phone = data[1]
@@ -167,7 +168,6 @@ class Bot:
     def edit_phone(self, book, data):
         data = data[0]
         name, old_phone, new_phone = data
-        # print(new_phone, old_phone)
         record = book.find(name)
         record.edit_phone(old_phone, new_phone)
         return record
@@ -236,11 +236,12 @@ class Bot:
     def hello(self, book, data):
         return '\n  Hello how can I help you?\n'
 
-    def help(self, book, data):
+    def help(self, *_):
         return TEXT
 
     @input_error
     def good_bye(self, book, data):
+
         try:
             with open('phone_book.pickle', 'wb') as fh:
                 pickle.dump(book.data, fh)
@@ -381,7 +382,6 @@ class Bot:
             "days to birthdays": self.days_to_birthday,
             'help': self.help,
             'exit': self.good_bye,
-
         }
 
         print(TEXT)

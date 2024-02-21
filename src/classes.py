@@ -66,25 +66,6 @@ class Email(Field):
             return True
 
         raise ValueError('Invalid email address')
-        # return bool(re.match(r'((?:http(s?)://)(?:www.)?)[\w]+.[a-z]{2,3}', value))
-
-    # def add_email(self, email):
-    #     if not self.is_valid(email):
-    #         raise ValueError("Invalid email address format.")
-    #     super().value.append(email)
-
-    # def edit_email(self, old_email, new_email):
-    #     if old_email not in self.value:
-    #         raise ValueError("The old email address was not found.")
-    #     if not self.is_valid(new_email):
-    #         raise ValueError("Invalid email address format.")
-    #     index = self.value.index(old_email)
-    #     self.value[index] = new_email
-
-    # def remove_email(self, email):
-    #     if email not in self.value:
-    #         raise ValueError("The email address was not found.")
-    #     self.value.remove(email)
 
 
 class Record:
@@ -108,7 +89,6 @@ class Record:
 
     def add_phone(self, phone):
         phone = Phone(phone)
-        # if str(phone.value) not in [str(p.value) for p in self.phones]:
         if phone.value not in [p.value for p in self.phones]:
             self.phones.append(phone)
 
@@ -159,7 +139,6 @@ class Record:
         return None
 
     def edit_name(self, new_name):
-        # self.name.value = Name(new_name)
         self.name = Name(new_name)
 
     def edit_phone(self, old_phone, new_phone):
@@ -177,7 +156,6 @@ class Record:
     def find_phone(self, search):
 
         for phone in self.phones:
-            # if str(phone.value) == search:
             if phone.value == search:
                 return phone
 
@@ -215,7 +193,7 @@ class AddressBook(UserDict):
 
     def find(self, name: str):  # -> Record:
         # inner method. not for user's search
-        for key, value in self.data.items():
+        for key in self.data.keys():
             if name == key:
                 return self.data[key]
 
