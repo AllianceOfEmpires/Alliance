@@ -1,6 +1,10 @@
 ﻿from bot import *
 
 
-if __name__ == '__main__':
+def run():
     bot = Bot()
     bot.run()
+
+
+if __name__ == '__main__':
+    run()

@@ -1,13 +1,14 @@
-﻿setup(name='helper',
+﻿from setuptools import setup, find_packages
+
+setup(name='helper',
       version='0.0.1',
       description='Very usefull code',
-      url='http://github.com/storborg/usefull',
-      author='Flying Circus',
-      author_email='flyingcircus@example.com',
+      url='https://github.com/AllianceOfEmpires/Alliance.git',
+      author='Alliance',
+      author_email='',
       license='MIT',
-      packages=['jokes'],
+      packages=find_packages(),
       install_requires=[
           'markdown',
       ],
-      include_package_data=True,
-      zip_safe=False)
+      entry_points={'console_scripts': 'run-helper = src.main: run'})
