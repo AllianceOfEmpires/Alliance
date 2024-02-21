@@ -1,17 +1,17 @@
 ﻿class PhoneNotFound(Exception):
-    def __init__(self, message='Number not found'):
+    def __init__(self, message='\n Number not found \n'):
         self.message = message
         super().__init__(self.message)
 
 
 class NameNotFound(Exception):
-    def __init__(self, message='Name not found'):
+    def __init__(self, message='\n Name not found \n'):
         self.message = message
         super().__init__(self.message)
 
 
 class BadBirthdayFormat(Exception):
-    def __init__(self, message='Sorry, but birthday format is "DD.MM.YYYY"'):
+    def __init__(self, message='\n Sorry, but birthday format is "DD.MM.YYYY" \n'):
         self.message = message
         super().__init__(self.message)
 
