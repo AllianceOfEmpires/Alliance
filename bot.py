@@ -7,21 +7,29 @@ TEXT = \
     """
                        Commands list
         
-    1. add contact with additional info:  - - - > add name phone birthday email address
-    2. New contact                        - - - > 2 Alex
-    3. Add phone                    - - - > 3 Alex 2222222222
-    4. Add birthday                 - - - > 4 Alex 31.12.1700
-    5. Edit name                    - - - > 5 Alex Alexandr
-    6. Edit phone                   - - - > 6 Alexandr 2222222222 3333333333
-    7. Edit birthday                - - - > 7 Alexandr 31.12.1701
-    8. Day to birthday              - - - > 8 Alexandr
-    9. Search                       - - - > search text
-    10. remove contact              - - - > remove name
-    11. remove phone                - - - > remove name phone
-    12. Show all contact            - - - > show all
-    13. Commands list               - - - > help
-    14. Good bye!                   - - - > good bye / exit / close
-    
+    1. Add contact with additional info:      - - - > add info name phone birthday email address (example: add info denis 1234567890 20.12.2012 goit@mail.com Kiev)
+    2. Add phone                              - - - > add phone name phone_number (example: add phone denis 1234567890)
+    3. Add address                            - - - > add address name address (example: add address denis Kiev)
+    4. Add note                               - - - > add note title text (example: add note shopping_list "Buy milk, eggs, and bread")
+    5. Add birthday                           - - - > add birthday name (example: add birthday denis 12.12.2012)
+    6. Add email                              - - - > add email name email_address (example: add email denis goit@mail.com)
+    7. Add contact                            - - - > add name (example: add denis)
+    8. Edit note                              - - - > edit note old_title new_title new_text (example: edit note shopping_list grocery_list "Buy milk, eggs, and bread")
+    9. Edit name                              - - - > edit name old_name new_name (example: edit name denis andrew)
+    10. Edit phone                            - - - > edit phone name old_phone new_phone (example: edit phone andrew 1234567890 01234789)
+    11. Edit birthday                         - - - > edit birthday name new_birthday (example: edit birthday kolya 12.12.2000)
+    12. Edit email                            - - - > edit email name old_email new_email (example: edit email kolya old_email new_email)
+    13. Remove                                - - - > remove name (example: remove denis)
+    14. Remove note                           - - - > remove note title (example: remove note shopping_list)
+    15. Remove address                        - - - > remove address name address (example: remove address denis Kiev)
+    16. Contacts birthday                     - - - > contacts birthday (example: contacts birthday)
+    17. Show all notes                        - - - > show all notes
+    18. Show all                              - - - > show all
+    19. Search note                           - - - > search note text (example: search note milk)
+    20. Search                                - - - > search text (example: search denis)
+    21. Days to birthdays                     - - - > days to birthdays name (example: days to birthdays denis)
+    22. Help                                  - - - > help
+    23. Exit                                  - - - > exit
     """
 
 
