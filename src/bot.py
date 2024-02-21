@@ -202,12 +202,14 @@ class Bot:
         days = int(data[0])
         result = []
         for record in book.values():
-            if record.days_to_birthday() < days:
-                result.append(record)
+            # print(f'{days=} {record.days_to_birthday}')
+            if record.birthday:
+                if record.days_to_birthday() < days:
+                    result.append(record)
         if result != []:
             return result
         else:
-            return 'There are no contacts'
+            return 'There are no contacts for congratulations'
 
     @input_error
     def find(self, book, data):
@@ -300,7 +302,7 @@ class Bot:
 
             for record in book.iterator(5):
                 # print(record)
-                print(*record)
+                print(*record, sep='\n')
                 # input('')
 
     def add_note(self, book, data):
