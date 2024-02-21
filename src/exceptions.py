@@ -1,4 +1,4 @@
-﻿class PhoneNotFound(Exception):
+﻿﻿class PhoneNotFound(Exception):
     def __init__(self, message='Number not found'):
         self.message = message
         super().__init__(self.message)
@@ -23,8 +23,12 @@ class BadEmailFormat(Exception):
 
 
 class AddressIsExist(Exception):
-    pass
+    def __init__(self, message='This address already exists'):
+        self.message = message
+        super().__init__(self.message)
 
 
 class AddressIsNotExist(Exception):
-    pass
+    def __init__(self, message='This address does`nt exist'):
+        self.message = message
+        super().__init__(self.message)

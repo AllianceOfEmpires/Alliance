@@ -56,7 +56,7 @@ class Birthday(Field):
             datetime.strptime(value, '%d.%m.%Y')
             return True
         except:
-            return False
+            raise BadBirthdayFormat
 
 
 class Email(Field):
@@ -66,7 +66,7 @@ class Email(Field):
         if bool(re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', value)):
             return True
 
-        raise ValueError('Invalid email address')
+        raise BadEmailFormat
 
 
 class Record:
