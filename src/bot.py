@@ -405,5 +405,4 @@ class Bot:
                     break
 
             except Exception as e:
-                # print('\n Check your input! \n')
-                print(e)
+                pass
