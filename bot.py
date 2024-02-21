@@ -373,7 +373,7 @@ class Bot:
             'remove note': self.remove_note,
             "remove address": self.remove_address,
             'contacts birthday': self.contacts_birthday,
-            "clean": self.clean  # test
+            "clean": self.clean,  # test
             'show all notes': self.show_all_notes,
             "show all": self.show_all,
             'search note': self.search_note,
