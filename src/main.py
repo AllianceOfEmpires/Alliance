@@ -1,4 +1,4 @@
-﻿from bot import *
+﻿from .bot import Bot
 
 
 def run():

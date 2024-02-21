@@ -9,6 +9,8 @@ setup(name='helper',
       license='MIT',
       packages=find_packages(),
       install_requires=[
-          'markdown',
+            'markdown',
       ],
-      entry_points={'console_scripts': 'run-helper = src.main: run'})
+      entry_points={'console_scripts': ['run=src.main:run']},
+      include_package_data=True,
+      zip_safe=False)

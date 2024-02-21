@@ -1,7 +1,8 @@
 import re
 from collections import UserDict
 from datetime import datetime
-from exceptions import *
+from .exceptions import *
+# from .exceptions import *
 
 
 class Field:

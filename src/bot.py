@@ -1,10 +1,14 @@
 import pickle
 import typing
 from typing import List
-from clean_folder import Cleaner
-from classes import *
-from exceptions import *
-from notes import *
+from .clean_folder import Cleaner
+from .classes import *
+from .exceptions import *
+from .notes import *
+# from .clean_folder import Cleaner
+# from .classes import *
+# from .exceptions import *
+# from .notes import *
 
 TEXT = \
     """
