@@ -14,15 +14,15 @@ TEXT = \
     5. Add birthday                           - - - > add birthday name (example: add birthday denis 12.12.2012)
     6. Add email                              - - - > add email name email_address (example: add email denis goit@mail.com)
     7. Add contact                            - - - > add name (example: add denis)
-    8. Edit note                              - - - > edit note old_title new_title new_text (example: edit note shopping_list grocery_list "Buy milk, eggs, and bread")
+    8. Edit note                              - - - > edit note old_title new_text (example: edit note shopping_list grocery_list "Buy milk, eggs, and bread")
     9. Edit name                              - - - > edit name old_name new_name (example: edit name denis andrew)
     10. Edit phone                            - - - > edit phone name old_phone new_phone (example: edit phone andrew 1234567890 01234789)
     11. Edit birthday                         - - - > edit birthday name new_birthday (example: edit birthday kolya 12.12.2000)
     12. Edit email                            - - - > edit email name old_email new_email (example: edit email kolya old_email new_email)
     13. Remove                                - - - > remove name (example: remove denis)
     14. Remove note                           - - - > remove note title (example: remove note shopping_list)
-    15. Remove address                        - - - > remove address name address (example: remove address denis Kiev)
-    16. Contacts birthday                     - - - > contacts birthday (example: contacts birthday)
+    15. Remove address                        - - - > remove address name address (example: remove address denis)
+    16. Contacts birthday                     - - - > contacts birthday days (example: contacts birthday 5)
     17. Show all notes                        - - - > show all notes
     18. Show all                              - - - > show all
     19. Search note                           - - - > search note text (example: search note milk)
