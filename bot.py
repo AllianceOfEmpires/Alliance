@@ -1,4 +1,5 @@
 import pickle
+from clean_folder import Cleaner
 from classes import *
 from exceptions import *
 from notes import *
@@ -28,8 +29,9 @@ TEXT = \
     19. Search note                           - - - > search note text (example: search note milk)
     20. Search                                - - - > search text (example: search denis)
     21. Days to birthdays                     - - - > days to birthdays name (example: days to birthdays denis)
-    22. Help                                  - - - > help
-    23. Exit                                  - - - > exit
+    22. Folder cleaner.                       - - - > clean <path> - simple file sorter
+    23. Help                                  - - - > help
+    24. Exit                                  - - - > exit
     """
 
 
@@ -38,6 +40,7 @@ class Bot:
         # FILE_NAME = 'phone_book.pickle'
         self.file = 'phone_book.pickle'
         self.book = AddressBook()
+        self.raw_path = ""
         try:
             with open(self.file, 'rb') as fh:
                 read_book = pickle.load(fh)
@@ -65,6 +68,8 @@ class Bot:
                 return ('\n  Check the phone number! Should be 10 digits\n')
             except IndexError:
                 return ('\n  Check your input!\n')
+            except FileNotFoundError:
+                return ('\n  Path is not exist!\n')
             except AddressIsExist:
                 return ('\n  Address is exist!\n')
             except AddressIsNotExist:
@@ -147,7 +152,9 @@ class Bot:
         return record
 
     def console_input(self):
-        return input('> ').lower().strip()
+        usr_input = input('> ')
+        self.raw_path = usr_input
+        return usr_input.lower().strip()
 
     @input_error
     def edit_name(self, book, data):
@@ -220,6 +227,11 @@ class Bot:
             if not result:
                 raise KeyError
             return result
+
+    @input_error
+    def clean(self, data=None, path=None):
+        cleaner = Cleaner(self.raw_path.strip().split()[1])
+        cleaner.clean()
 
     def hello(self, book, data):
         return '\n  Hello how can I help you?\n'
@@ -361,6 +373,7 @@ class Bot:
             'remove note': self.remove_note,
             "remove address": self.remove_address,
             'contacts birthday': self.contacts_birthday,
+            "clean": self.clean  # test
             'show all notes': self.show_all_notes,
             "show all": self.show_all,
             'search note': self.search_note,
@@ -368,6 +381,7 @@ class Bot:
             "days to birthdays": self.days_to_birthday,
             'help': self.help,
             'exit': self.good_bye,
+
         }
 
         print(TEXT)
