@@ -3,7 +3,7 @@
 
 class Note(UserDict):
     def add(self, note_title, note_text):
-        
+
         self.data[note_title] = note_text
         return self.print_single_note(note_title)
 
@@ -34,7 +34,7 @@ class Note(UserDict):
 
     def print_all_notes(self):
         if not self.data:
-            return "  No notes available."
+            return "\n  No notes available.\n"
         else:
             result = '\n   All notes:\n\n'
             for title, text in self.data.items():
