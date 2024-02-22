@@ -405,5 +405,7 @@ class Bot:
                 if result == 'Good bye!':
                     break
 
+            except TypeError as e:
+                print('\n Check your input \n')
             except Exception as e:
                 print(e)
