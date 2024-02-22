@@ -103,7 +103,7 @@ class Record:
         address = Address(address)
         if address.value not in [a.value for a in self.addresses]:
             self.addresses.append(address)
-            return address
+            return self.address
         else:
             raise AddressIsExist
 
@@ -111,6 +111,7 @@ class Record:
         email = Email(email)
         if email.value not in [a.value for a in self.emails]:
             self.emails.append(email)
+            return self.emails
         else:
             raise ValueError("Email already exists")
 
@@ -190,7 +191,7 @@ class AddressBook(UserDict):
             self.data[str(record.name.value)] = record
             return record
 
-        raise KeyError
+        raise ContactAlreadyExists
 
     def find(self, name: str):  # -> Record:
         # inner method. not for user's search

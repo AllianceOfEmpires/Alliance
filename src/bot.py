@@ -107,7 +107,9 @@ class Bot:
     def add_contact(self, book, data):
 
         record = Record(Name(data[0][0]))
-        book.add_record(record)
+        result = book.add_record(record)
+        if result:
+            print('\n The contact has been added \n')
         return record
 
     @input_error
@@ -116,8 +118,9 @@ class Bot:
         name = data[0]
         record = book.find(name)
         phone = data[1]
-        record.add_phone(phone)
-
+        result = record.add_phone(phone)
+        if result:
+            print('\n Phone has been added\n')
         return record
 
     @input_error
@@ -126,7 +129,9 @@ class Bot:
         name = data[0]
         record = book.find(name)
         birthday = data[1]
-        record.add_birthday(birthday)
+        result = record.add_birthday(birthday)
+        if result:
+            print('\n Birthday has been added\n')
 
         return record
 
@@ -137,6 +142,7 @@ class Bot:
         address = " ".join(data[1:])
         record = book.find(name)
         record.add_address(address)
+        print('\n Address has been added\n')
         return record
 
     @input_error
@@ -145,7 +151,9 @@ class Bot:
         name = data[0]
         record = book.find(name)
         mail = data[1]
-        record.add_email(mail)
+        result = record.add_email(mail)
+        if result:
+            print('\n Email has been added\n')
 
     @input_error
     def remove_address(self, book, data):
@@ -154,6 +162,7 @@ class Bot:
         address = " ".join(data[1:])
         record = book.find(name)
         record.remove_address(address)
+        print('\n Address has been removed')
         return record
 
     def console_input(self):

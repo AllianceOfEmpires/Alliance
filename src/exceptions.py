@@ -23,12 +23,18 @@ class BadEmailFormat(Exception):
 
 
 class AddressIsExist(Exception):
-    def __init__(self, message='This address already exists'):
+    def __init__(self, message='\n This address already exists\n'):
         self.message = message
         super().__init__(self.message)
 
 
 class AddressIsNotExist(Exception):
-    def __init__(self, message='This address does`nt exist'):
+    def __init__(self, message='\n This address does`nt exist\n'):
+        self.message = message
+        super().__init__(self.message)
+
+
+class ContactAlreadyExists(Exception):
+    def __init__(self, message='\n The contact already exists\n'):
         self.message = message
         super().__init__(self.message)
