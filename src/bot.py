@@ -376,8 +376,9 @@ class Bot:
             "edit phone": self.edit_phone,
             'edit birthday': self.edit_birthday,
             'edit email': self.edit_email,
-            "remove": self.remove,
+            "remove phone": self.remove,
             'remove note': self.remove_note,
+            "remove": self.remove,
             "remove address": self.remove_address,
             'contacts birthday': self.contacts_birthday,
             "clean": self.clean,  # test
@@ -405,4 +406,4 @@ class Bot:
                     break
 
             except Exception as e:
-                pass
+                print(e)

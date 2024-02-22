@@ -17,7 +17,7 @@ class BadBirthdayFormat(Exception):
 
 
 class BadEmailFormat(Exception):
-    def __init__(self, message='Email format is incorrect, please try again'):
+    def __init__(self, message='\n Email format is incorrect, please try again \n'):
         self.message = message
         super().__init__(self.message)
 
