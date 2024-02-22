@@ -198,7 +198,6 @@ class AddressBook(UserDict):
         for key in self.data.keys():
             if name == key:
                 return self.data[key]
-        raise KeyError
 
     def iterator(self, n=2):
         values = list(self.data.values())
