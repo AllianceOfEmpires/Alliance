@@ -101,7 +101,9 @@ class Bot:
             address = " ".join(data[4:])
 
         record = Record(name, phone, birthday, address, email)
-        book.add_record(record)
+        result = book.add_record(record)
+        if result:
+            print('\n Record has been added')
 
         return record
 
@@ -111,7 +113,7 @@ class Bot:
         record = Record(Name(data[0][0]))
         result = book.add_record(record)
         if result:
-            print('\n The contact has been added \n')
+            print('\n Contact has been added \n')
         return record
 
     @input_error
