@@ -80,6 +80,8 @@ class Bot:
                 return ('\n  Address is exist!\n')
             except AddressIsNotExist:
                 return ('\n  Address is not exist!\n')
+            except AttributeError:
+                return ('\n  Check your input!\n')
 
         return inner
 
